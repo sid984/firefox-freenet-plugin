@@ -1,0 +1,3 @@
+content     freenet    content/
+overlay chrome://browser/content/browser.xul chrome://freenet/content/browser.xul
+

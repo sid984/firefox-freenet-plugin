@@ -1,0 +1,133 @@
+<html>
+	<head>
+		<title>Freemail</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" media="screen" href="freemail.css" />
+		
+		<script src="core.js"></script>
+		<script src="freemail.js"></script>
+		<script src="tcp-client.js"></script>
+		<script src="imap-client.js"></script>
+		<script src="smtp-client.js"></script>
+		<script src="base64.js"></script>
+		<script>
+			window.onload = function(){
+				window.Freemail = new _Freemail();
+			}
+		</script>
+	</head>
+	<body>
+		<div id="login-box">
+			<table width="100%" height="100%">
+				<tr>
+					<td align="center" valign="middle">
+						<div style="width: 600px; height: 200px;">
+							<form onsubmit="Freemail.login(); return false;">
+								<div id="status"></div>
+								<br />
+								<br />
+								<table>
+									<tr>
+										<td align="right">
+											Freemail Login:
+										</td>
+										<td>
+											<input id="freemail-login" type="text"></input>
+										</td>
+									</tr>
+									<tr>
+										<td align="right">
+											Freemail Password:
+										</td>
+										<td>
+											<input id="freemail-password" type="password"></input>
+										</td>
+									</tr>
+									<tr>
+										<td colspan=2 align="center">
+											<br />
+											<button onclick="Freemail.login()">Login</button>
+										</td>
+									</tr>
+								</table>
+							</form>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="auth-box">
+			<div class="freemail-header">
+				<table>
+					<tr>
+						<td class="title">
+							Freemail
+						</td>
+						<td class="item">
+							<button class="link" onclick="Freemail.inbox()"><span>Inbox</span></button>
+						</td>
+						<td class="item">
+							<button class="link" onclick="Freemail.outbox()"><span>Outbox</span></button>
+						</td>
+						<td class="item">
+							<button class="link" onclick="Freemail.write()"><span>Write</span></button>
+						</td>
+						<td align="right">
+							Logged in as <span id="logged-in"></span> <button class="link" onclick="Freemail.logout()"><span>Logout</span></button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="freemail-block-inbox">
+				<div id="freemail-inbox-list">
+					<div id="total" class="header"></div>
+					<div id="mail-list" class="mailbox-list"></div>
+				</div>
+				<div id="freemail-inbox-mail">
+					<div class="header">
+						<button class="link" onclick="Freemail.closeMail()"><span>Back</span></button>
+						<button class="link" onclick="Freemail.reply()"><span>Reply</span></button>
+					</div>
+					<div id="mail-from"></div>
+					<div id="mail-to"></div>
+					<div id="mail-body"></div>
+				</div>
+			</div>
+			<div id="freemail-block-outbox">
+			</div>
+			<div id="freemail-block-write">
+				<table style="width:100%">
+					<tr>
+						<td style="width: 80px;">
+							From:
+						</td>
+						<td>
+							<input type="text" id="new-mail-from" value=""></input>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							To:
+						</td>
+						<td>
+							<input type="text" id="new-mail-to" value=""></input>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Subject:
+						</td>
+						<td>
+							<input type="text" id="new-mail-subject" value=""></input>
+						</td>
+					</tr>
+				</table>
+				<textarea id="new-mail-body"></textarea>
+				<br />
+				<!--<button onclick="Freemail.closeMail()"><span>Back</span></button>-->
+				<button onclick="Freemail.sendMail()"><span>Send</span></button>
+			</div>
+		</div>
+	</body>
+</html>

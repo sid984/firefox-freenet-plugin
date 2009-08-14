@@ -1,0 +1,114 @@
+body, div, span, table, td {
+	padding: 0px;
+	margin: 0px;
+	font-family: "Verdana" sans-serif;
+	font-size: 14px;
+}
+
+.border{
+	width: 100%;
+	height: 100%;
+	border: 1px solid black;
+}
+
+button.link {
+		overflow: visible;
+        width: auto;
+        font-family: "Verdana" sans-serif;
+        font-size: 1em;
+        text-align: left;
+        color: blue;
+        background: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        cursor: pointer;
+        -moz-user-select: text;
+        /* override all your button styles here if there are any others */
+}
+button.link span {
+        text-decoration: underline;
+}
+button.link:hover span,
+button.link:focus span {
+        color: black;
+}
+
+div.freemail-header{
+	border-bottom: 1px solid #CCCCCC;
+}
+
+div.freemail-header table{
+	width: 100%;
+}
+
+div.freemail-header table td {
+	padding: 0px 4px;
+}
+
+div.freemail-header table .title{
+	font-weight: bold;
+	width: 150px;
+}
+
+div.freemail-header table .item{
+	width: 80px;
+	text-align: center;
+}
+
+#freemail-block-inbox .header {
+	text-align: center;
+	background-color: #E6E6E6;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+.mailbox-list .item {
+	border-bottom: 1px solid #DDDDDD;
+	cursor: pointer;
+	padding: 1px 0px;
+}
+
+.mailbox-list .item.hover div{
+}
+
+.mailbox-list .item div.number{
+	text-align: center;
+}
+
+.mailbox-list .item div.from{
+	overflow: hidden;
+	white-space:nowrap;
+	text-align: left;
+	//font-weight: bold;
+}
+
+.mailbox-list .item div.subject{
+	white-space:nowrap;
+	overflow: hidden;
+	text-align: left;
+}
+
+.mailbox-list .item div.date{
+	white-space:nowrap;
+	overflow: hidden;
+	text-align: right;
+	padding-right: 5px;
+}
+
+.mail-headers {
+	border-bottom: 1px solid #dddddd;
+}
+
+#freemail-block-write {
+	padding: 5px 10px;
+}
+
+#freemail-block-write input {
+	width: 100%;
+}
+
+#freemail-block-write textarea {
+	width: 100%;
+	height: 300px;
+	margin-top: 10px;
+}

@@ -1,0 +1,25 @@
+Freenet plugin for Firefox
+
+Currently there is only simple WebUI for Freemail. You can find it at http://localhost:9999/ after plugin installation.
+Using this plugin could be easily implemented dynamic web interfaces for other freenet staff like FMS, etc.
+
+Installation:
+ - XPI installation:
+	type in firefox location bar url to xpi - file:///PLUGIN_DIR/freenet-0.1.xpi 
+ - installation from source:
+	python ./manage.py install -p $FIREFOX_PROFILE_NAME
+	use "default" for $FIREFOX_PROFILE_NAME if you do not use any other profiles
+
+XPI generation:
+	python ./manage.py xpi
+
+
+TODO:
+ - Outbox
+ - Attachments
+ - List of contacts
+ - Mark read/unread, mark by star, sorting
+ - Mailing lists???
+
+AUTHOR:
+  sid@m4wvu4tmknjewvssivydovsyonneuyzumjfx4t3nfvudgnckmzlew3dbmvyemwlxjztekldhkfceowlonzxhmsdpi5cfst3rkbvfk6tqmjtwo6czgu4w6tzzjjrgkzlbofhuo52ki5rsyqkrifbucqkf.freemail
