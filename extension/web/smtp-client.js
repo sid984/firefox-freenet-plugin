@@ -10,9 +10,10 @@ var SMTP_Client = Extends(TCP_Client, new Class({
 				/250\sAUTH\sLOGIN\sPLAIN/,		this.doAuth,
 				/235\sAuthenticated/,					this.onLogin,
 				/250\sOK/,										this.doWriteAddresses,
-				/553\s(.*)/,										this.onFail,
 				/354\sGo\scrazy/,							this.doWriteBody,
-				/250\sSo\sbe\sit/,							this.onSuccess
+				/553\s(.*)/,										this.onFail,
+				/504\s(.*)/,										this.onFail,
+				/250\sSo\sbe\sit/,							this.onSuccess,
 			];
 		},
 		
@@ -70,11 +71,14 @@ var SMTP_Client = Extends(TCP_Client, new Class({
 			this.disconnect();
 		},
 		
+		
+		
 		// --- PUBLIC ---
 		
 		// mail = {from: ... , to: ... , text: ... , headers: {From: ... , To: ..., Subject: ... }}
 		send: function(mail){
 			log("Trying to send mail to " + mail.to + " with text " + mail.body);
+			this.onStatus("sending");
 			this.mail = mail;
 			this.connect();
 		},

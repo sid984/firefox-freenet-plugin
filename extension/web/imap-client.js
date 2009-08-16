@@ -292,7 +292,7 @@ IMAP_Parser = new Class({
 			//log("length: " + length);
 			if(length == -1)
 				return null;
-			var line = this.tmp.substring(0, length - 1);
+			var line = this.tmp.substring(0, length - 1); // length); ???
 			this.tmp = this.tmp.substring(length + 1);
 			return line;
 		},

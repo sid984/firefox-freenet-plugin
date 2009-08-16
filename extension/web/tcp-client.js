@@ -2,11 +2,12 @@ var TCP_Client = new Class({
 
 		patterns: [],
 		
-		connect: function(){
+		connect: function(body){
 			this.req = new XMLHttpRequest();
 			this.req.onreadystatechange = F(this, this.onreadystatechange);
 			this.req.open("POST", this.URL, true);
-			this.req.send("port=" + this.port);	
+			this.req.setRequestHeader("port", this.port);
+			this.req.send(body || "");
 		},
 		
 		disconnect: function(){

@@ -11,8 +11,8 @@
  	<statusbarpanel id="freenet-statusbarpanel" context="freenet-statepopup" >
 		<image id="freenet-statusimage" context="freenet-statepopup"
 				src="chrome://freenet/content/status-bar-icon.png"
-				style="width:16px; height:16px;"
-			    onclick="if (event.button &lt; 2) { Freenet_Debug(); }" 
+				style="width:16px; height:16px; cursor: pointer;"
+			    onclick="if (event.button &lt; 2) { Freenet_Open(); }" 
 		/>	
 	</statusbarpanel>
  	

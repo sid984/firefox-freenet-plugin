@@ -2,7 +2,7 @@ var _Freemail = new Class({
 
 		port: 3143,
 		
-		autologin: null, //{login: "", password: ""},
+		autologin: {login: "test", password: "test"},
 		
 		initialize: function(){
 			
@@ -148,9 +148,23 @@ var _Freemail = new Class({
 		
 		sendMail: function(){
 			this.smpt = new SMTP_Client("/proxy", 3025, this.user_login, this.user_password);
-			var from, to;
-			from = $("new-mail-from").value;
-			to = $("new-mail-to").value;
+			this.smpt.onStatus =  F(this, function(status, data){
+				log("onStatus: " + status);
+				var el = $("new-mail-status");
+				switch(status){
+					case "sending":
+						el.innerHTML = "Sending...";
+						break;
+					case "success":
+						el.innerHTML = "Sent successfully";
+						break;
+					case "error":
+						el.innerHTML = "Error: " + data;
+						break;
+				}
+			});
+			var from = $("new-mail-from").value;
+			var to = $("new-mail-to").value;
 			var mail = {
 				from: from,
 				to: to,
@@ -160,8 +174,13 @@ var _Freemail = new Class({
 					To: to,
 					Subject: $("new-mail-subject").value
 				}
-			}
-			this.smpt.send(mail);
+			};
+			if(from == "")
+				this.smpt.onStatus("error", "From field is empty");
+			else if(to == "")
+				this.smpt.onStatus("error", "To field is empty");
+			else
+				this.smpt.send(mail);
 		},
 		
 		newMail: function(from, to, subject, body){

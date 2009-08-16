@@ -35,10 +35,11 @@ function dump(o){
 	log("<<<");
 }
 
-function Freenet_Debug(){
-	log("debug");
+function Freenet_Open(){
+	log("openig web UI");
+	//openAndReuseOneTabPerURL("http://localhost:9999/");
 	//server.close();
-	//Proxy_debug();
+	Proxy_debug();
 }
 
 function Proxy_debug(){
@@ -59,4 +60,46 @@ function Proxy_debug(){
 function startServer(){
 	server = new Server();
 	server.bind(9999);
+}
+
+function openAndReuseOneTabPerURL(url) {
+	var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+		.getService(Components.interfaces.nsIWindowMediator);
+	var browserEnumerator = wm.getEnumerator("navigator:browser");
+
+	// Check each browser instance for our URL
+	var found = false;
+	while (!found && browserEnumerator.hasMoreElements()) {
+		var browserWin = browserEnumerator.getNext();
+		var tabbrowser = browserWin.getBrowser();
+
+		// Check each tab of this browser instance
+		var numTabs = tabbrowser.browsers.length;
+		for(var index=0; index<numTabs; index++) {
+			var currentBrowser = tabbrowser.getBrowserAtIndex(index);
+			if (url == currentBrowser.currentURI.spec) {
+
+				// The URL is already opened. Select this tab.
+				tabbrowser.selectedTab = tabbrowser.mTabs[index];
+
+				// Focus *this* browser-window
+				browserWin.focus();
+
+				found = true;
+				break;
+			}
+		}
+	}
+
+	// Our URL isn't open. Open it now.
+	if (!found) {
+		var recentWindow = wm.getMostRecentWindow("navigator:browser");
+		if (recentWindow) {
+			// Use an existing browser window
+			recentWindow.delayedOpenTab(url, null, null, null, null);
+		} else {
+			// No browser windows are open, so open a new one.
+			window.open(url);
+		}
+	}
 }

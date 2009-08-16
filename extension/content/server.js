@@ -2,7 +2,7 @@ var Server = new Class({
 
 		bind: function(port){
 			try{
-				var loopback_only = false;
+				var loopback_only = true;
 				this.port = port;
 				
 				this.server = Components.classes["@mozilla.org/network/server-socket;1"].createInstance();
@@ -268,8 +268,7 @@ var Proxy = new Class({
 			} else {
 				// new proxy-connection request
 				
-				var m = /^port\=(\d+)$/.exec(body);
-				this.port = m[1];
+				this.port = headers.port;
 				log("New proxied request on port " + this.port);
 			
 				this.session = this.generateSession();
@@ -280,17 +279,21 @@ var Proxy = new Class({
 				this.client.onClose = F(this, this.onClientClose);
 				this.client.response(null, {session: this.session});
 					
-				this.proxify();	
+				this.proxify(body);	
 			}
 		},
 		
-		proxify: function(){
+		proxify: function(body){
 			try{
 				this.server = new TcpClient("localhost", this.port, {
-					onClose: F(this, this.onServerClose),
-					onData: F(this, this.onServerData)
+					onClose: 		F(this, this.onServerClose),
+					onData: 			F(this, this.onServerData),
+					onConnect: 	F(this, this.onServerConnect)
 				});
 				this.server.connect();
+				//log("body: " + body);
+				if(body)
+					this.server.write(body);
 			} catch(e){
 				log("Proxy connect error: " + e);
 			}
@@ -310,6 +313,11 @@ var Proxy = new Class({
 		onServerData: function(data){
 			log("Proxy: onServerData: " + data);
 			this.client.write(data);
+		},
+		
+		onServerConnect: function(){
+			//log("Proxy: onServerConnect");
+			//this.client.write("* OK\n");
 		},
 		
 		onClientClose: function(){
