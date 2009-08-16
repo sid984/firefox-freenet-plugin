@@ -1,3 +1,5 @@
+var session_tmp = 0;
+
 var Server = new Class({
 
 		bind: function(port){
@@ -301,8 +303,7 @@ var Proxy = new Class({
 		
 		generateSession: function(){
 			// TODO: придумать че нибудь поумнее
-			this.session_tmp = this.session_tmp || 0;
-			return ++this.session_tmp;
+			return ++session_tmp;
 		},
 		
 		onClientData: function(data){

@@ -85,7 +85,7 @@ var _Freemail = new Class({
 					Klass("subject", Div(list[i].Subject)),
 					Klass("date", Div(list[i].Date))
 				]), null, {
-					width: window.WIDTH - 2
+					//width: window.WIDTH - 2
 				}, {
 					className: "item"
 				});
