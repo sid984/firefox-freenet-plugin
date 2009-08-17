@@ -2,13 +2,15 @@ var _Freemail = new Class({
 
 		port: 3143,
 		
-		autologin: {login: "test", password: "test"},
+		autologin: null, //{login: "", password: ""},
 		
 		initialize: function(){
 			
 			window.WIDTH = window.innerWidth;
 			window.HEIGHT = window.innerHeight;
 	
+			hide("auth-box");
+			
 			this.logged = false;
 			this.imap = new IMAP_Client("/proxy", this.port);
 			this.imap.onStatus = F(this, function(status, data){

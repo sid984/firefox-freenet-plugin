@@ -37,9 +37,9 @@ function dump(o){
 
 function Freenet_Open(){
 	log("openig web UI");
-	//openAndReuseOneTabPerURL("http://localhost:9999/");
+	openAndReuseOneTabPerURL("http://localhost:9999/");
 	//server.close();
-	Proxy_debug();
+	//Proxy_debug();
 }
 
 function Proxy_debug(){
