@@ -38,10 +38,10 @@ var SMTP_Client = Extends(TCP_Client, new Class({
 			log("doWriteAddresses with state " + this.state);
 			switch(this.step++){
 				case 0:
-					this.write("MAIL FROM: " + this.mail.from);
+					this.write("MAIL FROM:" + this.mail.from);
 					break;
 				case 1:
-					this.write("RCPT TO: " + this.mail.to);
+					this.write("RCPT TO:" + this.mail.to);
 					break;
 				case 2:
 					this.write("DATA");
