@@ -67,7 +67,7 @@ var SMTP_Client = Extends(TCP_Client, new Class({
 		
 		onSuccess: function(){
 			log("success");
-			this.onStatus("success");
+			this.onStatus("success", this.mail);
 			this.disconnect();
 		},
 		

@@ -4,6 +4,7 @@ var Server = new Class({
 
 		bind: function(port){
 			try{
+				log("Trying to bind...");
 				var loopback_only = true;
 				this.port = port;
 				
@@ -158,8 +159,8 @@ var Connection = new Class({
 		
 		getStaticContent: function(path){
 			try {
-				
-				path = path == "" ? "index.html" : path;
+				if(path == "" || path.charAt(path.length - 1) == '/')
+					path += "index.html";
 				var m = /.*?\.([a-z]+)$/.exec(path);
 				var ext = m[1];
 				var extensions = {

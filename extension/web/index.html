@@ -7,6 +7,7 @@
 		<script src="core.js"></script>
 		<script src="freemail.js"></script>
 		<script src="tcp-client.js"></script>
+		<script src="imap-parser.js"></script>
 		<script src="imap-client.js"></script>
 		<script src="smtp-client.js"></script>
 		<script src="base64.js"></script>
@@ -64,11 +65,17 @@
 						<td class="title">
 							Freemail
 						</td>
+						<td>
+							<div id="indicator" style="width:15px; height: 15px; display: none;"></div>
+						</td>
 						<td class="item">
 							<button class="link" onclick="Freemail.inbox()"><span>Inbox</span></button>
 						</td>
 						<td class="item">
 							<button class="link" onclick="Freemail.outbox()"><span>Outbox</span></button>
+						</td>
+						<td class="item">
+							<button class="link" onclick="Freemail.contacts()"><span>Contacts</span></button>
 						</td>
 						<td class="item">
 							<button class="link" onclick="Freemail.write()"><span>Write</span></button>
@@ -80,21 +87,76 @@
 				</table>
 			</div>
 			<div id="freemail-block-inbox">
-				<div id="freemail-inbox-list">
-					<div id="total" class="header"></div>
-					<div id="mail-list" class="mailbox-list"></div>
-				</div>
-				<div id="freemail-inbox-mail">
-					<div class="header">
-						<button class="link" onclick="Freemail.closeMail()"><span>Back</span></button>
-						<button class="link" onclick="Freemail.reply()"><span>Reply</span></button>
-					</div>
-					<div id="mail-from"></div>
-					<div id="mail-to"></div>
-					<div id="mail-body"></div>
-				</div>
+				<div class="total mail-header"></div>
+				<div class="mailbox-list"></div>
 			</div>
 			<div id="freemail-block-outbox">
+				<div class="total mail-header"></div>
+				<div class="mailbox-list"></div>
+			</div>
+			<div id="freemail-block-contacts">
+				<div class="total mail-header"></div>
+				<div class="mailbox-list"></div>
+			</div>
+			<div id="freemail-block-mail">
+				<div class="mail-header">
+					<button class="link" onclick="Freemail.back()"><span>Back</span></button>
+					<button class="link" onclick="Freemail.reply()"><span>Reply</span></button>
+					<button class="link" onclick="Freemail.openContact(-2)" id="mail-add-contact"><span>Add Contact</span></button>
+				</div>
+				<div id="mail-from"></div>
+				<div id="mail-to"></div>
+				<div id="mail-body"></div>
+			</div>
+			<div id="freemail-block-contact">
+				<div class="mail-header">
+					<button class="link" onclick="Freemail.back()"><span>Back</span></button>
+					<button class="link" onclick="Freemail.deleteContact()"><span>Delete</span></button>
+				</div>
+				<div style="padding: 5px 10px">
+					<table style="width:100%">
+						<tr>
+							<td style="width: 120px;">
+								Name:
+							</td>
+							<td>
+								<input type="text" id="contact-name" value=""></input>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Long address:
+							</td>
+							<td>
+								<input type="text" id="contact-long" value=""></input>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Short address:
+							</td>
+							<td>
+								<input type="text" id="contact-short" value=""></input>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Notes:
+							</td>
+							<td>
+								<textarea id="contact-notes"></textarea>
+								<input type="hidden" id="contact-type" value=""></input>
+							</td>
+						</tr>
+						<tr>
+							<td>
+							</td>
+							<td>
+								<button onclick="Freemail.saveContact()">Save</button>
+							</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 			<div id="freemail-block-write">
 				<table style="width:100%">
